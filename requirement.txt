@@ -1,0 +1,5 @@
+beautifulsoup4==4.6.3
+pandas==1.4.3
+requests==2.23.0
+openpyxl==3.0.10
+black==22.6.0
