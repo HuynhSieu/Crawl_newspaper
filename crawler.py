@@ -1,7 +1,11 @@
-import logging
 from urllib.parse import urljoin
-import requests
 from bs4 import BeautifulSoup
+import pandas as pd
+import requests
+import re
+from typing import Callable
+from dataclasses import dataclass
+import logging
 
 logging.basicConfig(
     format='%(asctime)s %(levelname)s:%(message)s',
