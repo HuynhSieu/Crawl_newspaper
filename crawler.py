@@ -12,9 +12,6 @@ class Zing:
         self.subject_links = []
         self.links_of_subject = links
 
-    def get_url(self, url):
-        return requests.get(url).text
-
     def get_linked_links(self, url, html):
         soup = BeautifulSoup(html, 'html.parser')
         for link in soup.find_all('a'):
@@ -29,7 +26,7 @@ class Zing:
         print(self.links_of_subject)
 
     def crawl(self, url):
-        html = self.get_url(url)
+        html = requests.get(url).text
         for url in self.get_linked_links(url, html):
             self.add_url_to_list(url)
 
