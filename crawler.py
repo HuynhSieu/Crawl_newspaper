@@ -21,7 +21,7 @@ class Zing:
             path = link.get('href')
             if path and path.startswith('/'):
                 path = urljoin(url, path)
-            yield path
+            return path
 
     def add_url_to_list(self, url):
         if url not in self.subject_links and url not in self.links_of_subject:
