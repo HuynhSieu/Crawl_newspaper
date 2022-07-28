@@ -20,11 +20,6 @@ class Zing:
         self.subject_links = []
         self.links_of_subject = links
 
-
-    def get_parse(self, url):
-        if url not in self.subject_links and url not in self.links_of_subject:
-            return requests.get(url).text
-
     def get_links(self, url, html):
         soup = BeautifulSoup(html, 'html.parser')
         for link in soup.findAll('a', recursive=True):
@@ -33,14 +28,12 @@ class Zing:
                 path = urljoin(url, path)
             yield path
 
-    def add_url_to_list(self, url):
-        if url not in self.subject_links and url not in self.links_of_subject:
-            self.links_of_subject.append(url)
-
     def crawl(self, url):
-        html = self.get_parse(url)
+        lambda url: url not in self.links_of_subject
+        html = requests.get(url).text
         for url in self.get_links(url, html):
-            self.add_url_to_list(url)
+            if url not in self.subject_links and url not in self.links_of_subject:
+                self.links_of_subject.append(url)
 
     def run(self):
         while self.links_of_subject:
@@ -55,4 +48,3 @@ class Zing:
 
 if __name__ == '__main__':
     Zing(links=['https://zingnews.vn/']).run()
-
